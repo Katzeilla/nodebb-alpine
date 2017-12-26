@@ -1,1 +1,1 @@
-# nodebb-slim
+# nodebb-alpine
