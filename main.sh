@@ -18,8 +18,9 @@ show_usage()
         echo
         echo "ACTION:"
         echo "stop                    Stop NodeBB-alpine"
-        echo "debug                   Start in to bash"
-        echo "--help, -h ,help        Show this message"
+        echo "build                  Build NodeBB-alpine"
+        echo "debug                     Start in to bash"
+        echo "--help, -h ,help         Show this message"
         echo
         echo "If no [ACTION], start normally"
 }
@@ -30,7 +31,12 @@ show_usage()
 
 elif [[ $1 == stop ]];then
         echo $date 'Stoping NodeBB-alpine......'
-        stop_nginx
+        nodebb_stop
+        exit
+
+elif [[ $1 == build ]];then
+        echo $date 'Build NodeBB-alpine:testing ......'
+	docker build . --tag nodebb-alpine:testing 
         exit
 
 elif [[ $1 == --help ]] || [[ $1 == -h ]] || [[ $1 == help ]]; then
@@ -46,7 +52,7 @@ docker run -it \
   --mount type=bind,source=$dir/nodebb,target=/home/node/nodebb \
   --name nodebb-alpine \
   $flag \
-  demo:2
+  nodebb-alpine:testing
 
 if [[ $? == 125 ]];
     then
