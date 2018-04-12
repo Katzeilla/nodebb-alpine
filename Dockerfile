@@ -1,14 +1,14 @@
 FROM node:alpine
 
-USER node
+COPY scripts/entrypoint.sh /entrypoint.sh
+COPY scripts/setup.sh /setup.sh
+COPY scripts/start.sh /start.sh
 
-ENV NODE_ENV=production \
-    daemon=false \
-    silent=false
+RUN apk add --no-cache \
+		git \
+		bash
 
-CMD if [[ -d /home/node/nodebb ]]; then cd /home/node/nodebb && ./nodebb ; fi
-
-WORKDIR /home/node/nodebb
+ENTRYPOINT ["/entrypoint.sh"]
 
 EXPOSE 4567
 
