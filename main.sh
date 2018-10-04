@@ -32,7 +32,7 @@ show_usage()
 
 elif [[ "$1" == network ]]; then
     if [[ "$2" != "" ]]; then
-        flag="--network "$2""
+        flag="--network $2"
         echo Connect to "$2"
     fi
 
