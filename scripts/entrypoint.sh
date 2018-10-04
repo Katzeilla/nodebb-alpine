@@ -1,13 +1,11 @@
 #! /bin/bash
 
-chown -R node /home/node/nodebb
 
-if [[ ! -f /home/node/nodebb/config.json ]]; then
-# Use config.json as a flag
-
+if [[ ! -d /home/node/nodebb ]]; then
 	su node -c "/setup.sh"
 fi
 
+chown -R node /home/node/nodebb
 su node -c "/start.sh"
 
 
