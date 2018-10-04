@@ -58,7 +58,7 @@ docker run -it \
   -p 4567:4567 \
   --mount type=bind,source="$dir"/nodebb,target=/home/node/nodebb \
   --name nodebb-alpine \
-  "$flag" \
+  $flag \
   nodebb-alpine:testing
 
 if [[ $? == 125 ]];
