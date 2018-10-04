@@ -1,6 +1,6 @@
 #! /bin/bash
 
-dir=$(pwd)
+dir="$(pwd)"
 
 date="[$(date)]"
 
@@ -26,44 +26,44 @@ show_usage()
         echo "If no [ACTION], start normally"
 }
 
-  if [[ $1 == debug ]]; then
+  if [[ "$1" == debug ]]; then
         flag='--entrypoint /bin/sh'
-		echo $date 'Debug Mode'
+		echo "$date" 'Debug Mode'
 
-elif [[ $1 == network ]]; then
-    if [[ $2 != "" ]]; then
-        flag="--network $2"
-        echo Connect to $2
+elif [[ "$1" == network ]]; then
+    if [[ "$2" != "" ]]; then
+        flag="--network "$2""
+        echo Connect to "$2"
     fi
 
-elif [[ $1 == stop ]]; then
-        echo $date 'Stoping NodeBB-alpine......'
+elif [[ "$1" == stop ]]; then
+        echo "$date" 'Stoping NodeBB-alpine......'
         nodebb_stop
         exit
 
-elif [[ $1 == build ]]; then
-        echo $date 'Build NodeBB-alpine:testing ......'
+elif [[ "$1" == build ]]; then
+        echo "$date" 'Build NodeBB-alpine:testing ......'
 	docker build . --tag nodebb-alpine:testing 
         exit
 
-elif [[ $1 == --help ]] || [[ $1 == -h ]] || [[ $1 == help ]]; then
+elif [[ "$1" == --help ]] || [[ "$1" == -h ]] || [[ "$1" == help ]]; then
         show_usage
         exit
 
 else
-	    echo $date 'Normal Mode'
+	    echo "$date" 'Normal Mode'
 fi
 
 docker run -it \
   -p 4567:4567 \
-  --mount type=bind,source=$dir/nodebb,target=/home/node/nodebb \
+  --mount type=bind,source="$dir"/nodebb,target=/home/node/nodebb \
   --name nodebb-alpine \
-  $flag \
+  "$flag" \
   nodebb-alpine:testing
 
 if [[ $? == 125 ]];
     then
-    echo $date "Another nodebb-alpine already start, stop it......"
+    echo "$date" "Another nodebb-alpine already start, stop it......"
     nodebb_stop
-    ./main.sh $1
+    ./main.sh "$1"
   fi
