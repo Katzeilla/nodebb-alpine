@@ -66,9 +66,9 @@ docker run -it \
   $flag \
   nodebb-alpine:testing
 
-if [[ $? == 125 ]];
-    then
-    echo "$date" "Another nodebb-alpine already start, stop it......"
+if [[ $? != 0 ]]; then
+    if [[ find_running_instance ]]; then
+    echo "$date" "Another nodebb-alpine instance still running, stop it......"
     nodebb_stop
     ./main.sh "$1"
   fi
