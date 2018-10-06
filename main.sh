@@ -71,4 +71,5 @@ if [[ $? != 0 ]]; then
     echo "$date" "Another nodebb-alpine instance still running, stop it......"
     nodebb_stop
     ./main.sh "$1"
-  fi
+  fi  
+fi
