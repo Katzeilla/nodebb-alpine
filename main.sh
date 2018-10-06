@@ -4,6 +4,11 @@ dir="$(pwd)"
 
 date="[$(date)]"
 
+find_running_instance()
+{
+	docker ps | grep nodebb-alpine
+	return $?
+}
 
 nodebb_stop()
 {
@@ -67,9 +72,11 @@ docker run -it \
   nodebb-alpine:testing
 
 if [[ $? != 0 ]]; then
-    if [[ find_running_instance ]]; then
-    echo "$date" "Another nodebb-alpine instance still running, stop it......"
-    nodebb_stop
-    ./main.sh "$1"
-  fi  
+    if find_running_instance ; then
+    	
+	echo "$date" "Another nodebb-alpine instance still running, stop it......"
+    	nodebb_stop
+    	./main.sh "$1"
+
+   fi 
 fi
