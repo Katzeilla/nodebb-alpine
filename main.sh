@@ -64,6 +64,7 @@ if [ ! -d "$dir"/node  ]; then
 	mkdir "$dir"/node
 fi
 
+# shellcheck disable=SC2086
 docker run -it \
   -p 4567:4567 \
   --mount type=bind,source="$dir"/node,target=/home/node/ \
